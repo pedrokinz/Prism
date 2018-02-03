@@ -25,21 +25,21 @@ package com.helion3.prism.api.records;
 
 import java.util.Optional;
 
-import com.google.common.base.Preconditions;
-import org.spongepowered.api.block.BlockSnapshot;
-import org.spongepowered.api.data.DataView;
-import org.spongepowered.api.data.DataContainer;
-import org.spongepowered.api.data.Transaction;
-import org.spongepowered.api.block.BlockSnapshot.Builder;
+import javax.annotation.Nonnull;
 
-import com.helion3.prism.Prism;
-import com.helion3.prism.util.BlockUtil;
-import com.helion3.prism.util.DataQueries;
-import org.spongepowered.api.world.BlockChangeFlag;
+import org.spongepowered.api.block.BlockSnapshot;
+import org.spongepowered.api.block.BlockSnapshot.Builder;
+import org.spongepowered.api.data.DataContainer;
+import org.spongepowered.api.data.DataView;
+import org.spongepowered.api.data.Transaction;
+import org.spongepowered.api.world.BlockChangeFlags;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import javax.annotation.Nonnull;
+import com.google.common.base.Preconditions;
+import com.helion3.prism.Prism;
+import com.helion3.prism.util.BlockUtil;
+import com.helion3.prism.util.DataQueries;
 
 /**
  * Represents a block change event record.
@@ -88,7 +88,7 @@ public class BlockResult extends ResultComplete implements Actionable {
         BlockSnapshot original = location.getBlock().snapshotFor(location);
 
         // Actually restore!
-        if (!optionalSnapshot.get().restore(true, BlockChangeFlag.NONE)) {
+        if (!optionalSnapshot.get().restore(true, BlockChangeFlags.NONE)) {
             return ActionableResult.skipped(SkipReason.UNKNOWN);
         }
 
@@ -166,7 +166,7 @@ public class BlockResult extends ResultComplete implements Actionable {
         BlockSnapshot original = location.getBlock().snapshotFor(location);
 
         // Actually restore!
-        if (!optionalSnapshot.get().restore(true, BlockChangeFlag.NONE)) {
+        if (!optionalSnapshot.get().restore(true, BlockChangeFlags.NONE)) {
             return ActionableResult.skipped(SkipReason.UNKNOWN);
         }
 

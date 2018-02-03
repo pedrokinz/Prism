@@ -23,6 +23,18 @@
  */
 package com.helion3.prism.commands;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
+
 import com.helion3.prism.Prism;
 import com.helion3.prism.api.flags.Flag;
 import com.helion3.prism.api.query.QuerySession;
@@ -30,20 +42,10 @@ import com.helion3.prism.api.query.Sort;
 import com.helion3.prism.api.records.Actionable;
 import com.helion3.prism.api.records.ActionableResult;
 import com.helion3.prism.api.records.Result;
-import com.helion3.prism.util.*;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.args.GenericArguments;
-import org.spongepowered.api.command.spec.CommandSpec;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.event.CauseStackManager;
-import org.spongepowered.api.text.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import com.helion3.prism.util.Format;
+import com.helion3.prism.util.Template;
+import com.helion3.prism.util.Translation;
+import com.helion3.prism.util.WorldUtil;
 
 public class ApplierCommand {
     private ApplierCommand() {}

@@ -23,13 +23,9 @@
  */
 package com.helion3.prism.listeners;
 
-import java.util.Optional;
-
-import com.helion3.prism.api.flags.Flag;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.action.InteractEvent;
 import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.event.block.InteractBlockEvent.Secondary;
 import org.spongepowered.api.event.filter.cause.First;
@@ -37,6 +33,7 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import com.helion3.prism.Prism;
+import com.helion3.prism.api.flags.Flag;
 import com.helion3.prism.api.query.ConditionGroup;
 import com.helion3.prism.api.query.Query;
 import com.helion3.prism.api.query.QuerySession;

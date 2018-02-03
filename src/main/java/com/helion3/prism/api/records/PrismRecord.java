@@ -38,6 +38,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.entity.damage.source.EntityDamageSource;
 import org.spongepowered.api.event.cause.entity.damage.source.IndirectEntityDamageSource;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -212,6 +213,18 @@ public class PrismRecord {
         public PrismRecord pickedUp(Entity entity) {
             this.eventName = "picked up";
             writeItem((Item) entity);
+            return new PrismRecord(source, this);
+        }
+        
+        /**
+         * Describes a single item stack pickup.
+         *
+         * @param item Item Stack picked up.
+         * @return PrismRecord
+         */
+        public PrismRecord pickedUp(ItemStack item) {
+            this.eventName = "picked up";
+            writeItem((Item) item);
             return new PrismRecord(source, this);
         }
 

@@ -45,11 +45,14 @@ import com.helion3.prism.api.parameters.ParameterHandler;
 import com.helion3.prism.util.Format;
 
 public class QueryBuilder {
-    private QueryBuilder() {}
+    private QueryBuilder() {
+    }
+
     private static final Pattern flagPattern = Pattern.compile("(-)([^\\s]+)?");
 
     /**
      * Return an empty query.
+     * 
      * @return
      */
     public static Query empty() {
@@ -59,22 +62,28 @@ public class QueryBuilder {
     /**
      * Builds a {@link Query} by parsing a string of arguments.
      *
-     * @param session QuerySession
-     * @param arguments String Parameter: value string
+     * @param session
+     *            QuerySession
+     * @param arguments
+     *            String Parameter: value string
      * @return {@link Query} Database query object
      */
-    public static CompletableFuture<Query> fromArguments(QuerySession session, @Nullable String arguments) throws ParameterException {
-        return fromArguments(session, (arguments != null ? arguments.split(" ") : new String[]{}));
+    public static CompletableFuture<Query> fromArguments(QuerySession session, @Nullable String arguments)
+            throws ParameterException {
+        return fromArguments(session, (arguments != null ? arguments.split(" ") : new String[] {}));
     }
 
     /**
      * Builds a {@link Query} by parsing an array of arguments.
      *
-     * @param session QuerySession
-     * @param arguments String[] Parameter:value list
+     * @param session
+     *            QuerySession
+     * @param arguments
+     *            String[] Parameter:value list
      * @return {@link Query} Database query object
      */
-    public static CompletableFuture<Query> fromArguments(QuerySession session, @Nullable String[] arguments) throws ParameterException {
+    public static CompletableFuture<Query> fromArguments(QuerySession session, @Nullable String[] arguments)
+            throws ParameterException {
         checkNotNull(session);
 
         Query query = new Query();
@@ -105,7 +114,9 @@ public class QueryBuilder {
             }
 
             if (!futures.isEmpty()) {
-                CompletableFuture<Void> combinedFuture = CompletableFuture.<Void>allOf(futures.toArray(new CompletableFuture<?>[futures.size()]));
+                @SuppressWarnings("unused")
+                CompletableFuture<Void> combinedFuture = CompletableFuture
+                        .<Void>allOf(futures.toArray(new CompletableFuture<?>[futures.size()]));
                 combinedFuture.thenAccept((q) -> future.complete(query));
             } else {
                 future.complete(query);
@@ -128,14 +139,16 @@ public class QueryBuilder {
                 }
 
                 if (!aliasFound) {
-                    handler.processDefault(session, query).ifPresent(stringStringPair -> defaultsUsed.append(stringStringPair.getKey())
-                        .append(":").append(stringStringPair.getValue()).append(" "));
+                    handler.processDefault(session, query)
+                            .ifPresent(stringStringPair -> defaultsUsed.append(stringStringPair.getKey()).append(":")
+                                    .append(stringStringPair.getValue()).append(" "));
                 }
             }
 
             // @todo should move this
             if (defaultsUsed.length() > 0) {
-                session.getCommandSource().sendMessage(Format.subduedHeading(Text.of(String.format("Defaults used: %s", defaultsUsed.toString()))));
+                session.getCommandSource().sendMessage(
+                        Format.subduedHeading(Text.of(String.format("Defaults used: %s", defaultsUsed.toString()))));
             }
         }
 
@@ -145,12 +158,16 @@ public class QueryBuilder {
     /**
      * Parses a flag argument.
      *
-     * @param session QuerySession current session.
-     * @param query Query query being built.
-     * @param flag Flag
+     * @param session
+     *            QuerySession current session.
+     * @param query
+     *            Query query being built.
+     * @param flag
+     *            Flag
      * @return Optional<CompletableFuture<?>>
      */
-    private static Optional<CompletableFuture<?>> parseFlagFromArgument(QuerySession session, Query query, String flag) throws ParameterException {
+    private static Optional<CompletableFuture<?>> parseFlagFromArgument(QuerySession session, Query query, String flag)
+            throws ParameterException {
         flag = flag.substring(1);
 
         // Determine the true alias and value
@@ -193,7 +210,7 @@ public class QueryBuilder {
         String value;
         if (parameter.contains(":")) {
             // Split the parameter: values
-            String[] split = parameter.split( ":", 2 );
+            String[] split = parameter.split(":", 2);
             alias = split[0];
             value = split[1];
         } else {
@@ -208,13 +225,17 @@ public class QueryBuilder {
     /**
      * Parses a parameter argument.
      *
-     * @param session QuerySession current session.
-     * @param query Query query being built.
-     * @param parameter String argument which should be a parameter
+     * @param session
+     *            QuerySession current session.
+     * @param query
+     *            Query query being built.
+     * @param parameter
+     *            String argument which should be a parameter
      * @return Optional<CompletableFuture<?>>
      * @throws ParameterException
      */
-    private static Optional<CompletableFuture<?>> parseParameterFromArgument(QuerySession session, Query query, Pair<String, String> parameter) throws ParameterException {
+    private static Optional<CompletableFuture<?>> parseParameterFromArgument(QuerySession session, Query query,
+            Pair<String, String> parameter) throws ParameterException {
         // Simple validation
         if (parameter.getKey().length() <= 0 || parameter.getValue().length() <= 0) {
             throw new ParameterException("Invalid empty value for parameter \"" + parameter.getKey() + "\".");
@@ -230,12 +251,14 @@ public class QueryBuilder {
 
         // Allows this command source?
         if (!handler.acceptsSource(session.getCommandSource())) {
-            throw new ParameterException("This command source may not use the \"" + parameter.getKey() + "\" parameter.");
+            throw new ParameterException(
+                    "This command source may not use the \"" + parameter.getKey() + "\" parameter.");
         }
 
         // Validate value
         if (!handler.acceptsValue(parameter.getValue())) {
-            throw new ParameterException("Invalid value \"" + parameter.getValue() + "\" for parameter \"" + parameter.getKey() + "\".");
+            throw new ParameterException(
+                    "Invalid value \"" + parameter.getValue() + "\" for parameter \"" + parameter.getKey() + "\".");
         }
 
         return handler.process(session, parameter.getKey(), parameter.getValue(), query);

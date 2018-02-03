@@ -28,16 +28,15 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import com.helion3.prism.api.flags.Flag;
-import com.helion3.prism.api.records.Result;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.service.pagination.PaginationList;
-import org.spongepowered.api.text.Text;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.service.pagination.PaginationService;
+import org.spongepowered.api.text.Text;
 
 import com.helion3.prism.Prism;
+import com.helion3.prism.api.flags.Flag;
 import com.helion3.prism.api.query.QuerySession;
+import com.helion3.prism.api.records.Result;
 
 public class AsyncUtil {
     private AsyncUtil() {}

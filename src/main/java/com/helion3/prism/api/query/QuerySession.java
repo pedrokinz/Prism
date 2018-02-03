@@ -23,12 +23,6 @@
  */
 package com.helion3.prism.api.query;
 
-import com.google.common.base.Preconditions;
-import org.spongepowered.api.command.CommandSource;
-
-import com.helion3.prism.api.flags.Flag;
-import com.helion3.prism.api.parameters.ParameterException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -36,9 +30,15 @@ import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.spongepowered.api.command.CommandSource;
+
+import com.google.common.base.Preconditions;
+import com.helion3.prism.api.flags.Flag;
+import com.helion3.prism.api.parameters.ParameterException;
+
 /**
- * Represents a record query session, which includes the actual
- * {@link Query} as well as the source, and result set meta data.
+ * Represents a record query session, which includes the actual {@link Query} as
+ * well as the source, and result set meta data.
  *
  */
 public class QuerySession {
@@ -51,15 +51,18 @@ public class QuerySession {
     /*
      * Disallow creation of a query session without a command source.
      */
-    private QuerySession() {}
+    @SuppressWarnings("unused")
+    private QuerySession() {
+    }
 
     /**
      * Constructs a new query session with a known command source.
      *
-     * Queries may behave differently based on a user - for example a Player
-     * may lookup a radius but a console command or API call has no location.
+     * Queries may behave differently based on a user - for example a Player may
+     * lookup a radius but a console command or API call has no location.
      *
-     * @param commandSource CommandSource this session belongs to.
+     * @param commandSource
+     *            CommandSource this session belongs to.
      */
     public QuerySession(@Nonnull CommandSource commandSource) {
         Preconditions.checkNotNull(commandSource, "The specified command source cannot be null.");
@@ -68,7 +71,9 @@ public class QuerySession {
 
     /**
      * Add a flag to this query session.
-     * @param flag Flag
+     * 
+     * @param flag
+     *            Flag
      */
     public void addFlag(Flag flag) {
         flags.add(flag);
@@ -79,7 +84,7 @@ public class QuerySession {
      *
      * @return CommandSource
      */
-    public CommandSource getCommandSource(){
+    public CommandSource getCommandSource() {
         return commandSource;
     }
 
@@ -88,14 +93,15 @@ public class QuerySession {
      *
      * @return {@link Query}
      */
-    public Query getQuery(){
+    public Query getQuery() {
         return query;
     }
 
     /**
      * Check if a given flag is present.
      *
-     * @param flag Flag
+     * @param flag
+     *            Flag
      * @return
      */
     public boolean hasFlag(Flag flag) {
@@ -113,8 +119,8 @@ public class QuerySession {
     }
 
     /**
-     * For reference reasons, we need to know whether this was
-     * limited to a radius around the player (if any).
+     * For reference reasons, we need to know whether this was limited to a radius
+     * around the player (if any).
      *
      * @return int Radius
      */
@@ -134,7 +140,8 @@ public class QuerySession {
     /**
      * Create a new Query from the given parameters.
      *
-     * @param arguments String parameters/flags
+     * @param arguments
+     *            String parameters/flags
      * @return CompletableFuture<Query>
      */
     public CompletableFuture<Void> newQueryFromArguments(@Nullable String arguments) throws ParameterException {
@@ -151,6 +158,7 @@ public class QuerySession {
 
     /**
      * Gets the Sort order to be used for the query.
+     * 
      * @return ApplierMode
      */
     public Sort getSortBy() {
