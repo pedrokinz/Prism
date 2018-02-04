@@ -5,3 +5,7 @@ jdk:
   - openjdk8
   - oraclejdk8
 script: gradle build
+notifications:
+  email:
+    on_success: never
+    on_failure: always
