@@ -7,7 +7,6 @@ plugins {
     id 'checkstyle'
     id 'com.github.hierynomus.license' version '0.13.0'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
-    id 'flavor.pie.promptsign' version '1.0.2'
     id 'org.spongepowered.plugin' version '0.8.1'
 }
 
@@ -51,7 +50,6 @@ dependencies {
     compile 'org.spongepowered:spongeapi:7.0.0'
     compile 'org.mongodb:mongo-java-driver:3.4.2'
     compile 'com.zaxxer:HikariCP:2.5.1'
-    compile 'gradle.plugin.flavor.pie:promptsign:1.0.2'
     compile 'ninja.leaping.configurate:configurate-hocon:3.3'
 }
 
