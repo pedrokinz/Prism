@@ -72,3 +72,4 @@ nb-configuration.xml
 *.iml
 *.ipr
 *.iws
+gradle.properties
